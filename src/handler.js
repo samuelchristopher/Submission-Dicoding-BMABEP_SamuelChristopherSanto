@@ -85,6 +85,7 @@ const getAllBooksHandler = () => ({
       name: book.name,
       publisher: book.publisher,
     })),
+    // // untuk debugging data
     // books,
   },
 });
