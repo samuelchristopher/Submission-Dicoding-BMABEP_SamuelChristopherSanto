@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 /* eslint-disable max-len */
 const { nanoid } = require('nanoid');
 const books = require('./books');
