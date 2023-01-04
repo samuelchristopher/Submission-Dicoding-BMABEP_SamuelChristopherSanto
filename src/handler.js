@@ -89,7 +89,7 @@ const getAllBooksHandler = () => ({
   },
 });
 
-const getBooksByIdHandler = (request, h) => {
+const getBookByIdHandler = (request, h) => {
   const { bookId } = request.params;
 
   const book = books.filter((n) => n.id === bookId)[0];
@@ -114,5 +114,5 @@ const getBooksByIdHandler = (request, h) => {
 module.exports = {
   addBookHandler,
   getAllBooksHandler,
-  getBooksByIdHandler,
+  getBookByIdHandler,
 };
