@@ -77,18 +77,84 @@ const addBookHandler = (request, h) => {
   return response;
 };
 
-const getAllBooksHandler = () => ({
-  status: 'success',
-  data: {
-    books: books.map((book) => ({
-      id: book.id,
-      name: book.name,
-      publisher: book.publisher,
-    })),
-    // // untuk debugging data
-    // books,
-  },
-});
+const getAllBooksHandler = (request, h) => {
+  const { name, reading, finished } = request.query;
+
+  if (name) {
+    const keyword = name.toLowerCase();
+    const filterBookByName = books.filter(
+      (n) => n.name.toLowerCase().indexOf(keyword) > -1
+    );
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: filterBookByName.map((book) => ({
+          id: book.id,
+          name: book.name,
+          publisher: book.publisher,
+        })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (reading) {
+    const filterBookByReading = books.filter(
+      (n) => n.reading === Boolean(reading)
+    );
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: filterBookByReading.map((book) => ({
+          id: book.id,
+          name: book.name,
+          publisher: book.publisher,
+        })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (finished) {
+    const filterBookByFinished = books.filter(
+      (n) => Number(n.finished) === Number(finished)
+    );
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: filterBookByFinished.map((book) => ({
+          id: book.id,
+          name: book.name,
+          publisher: book.publisher,
+        })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (!name || !reading || !finished) {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books.map((book) => ({
+          id: book.id,
+          name: book.name,
+          publisher: book.publisher,
+        })),
+        // // untuk debugging data
+        // books,
+      },
+    });
+    response.code(200);
+    return response;
+  }
+};
 
 const getBookByIdHandler = (request, h) => {
   const { bookId } = request.params;
